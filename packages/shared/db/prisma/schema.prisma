@@ -1,0 +1,93 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Define User model
+model User {
+  id        String     @id @default(uuid())
+  email     String     @unique
+  name      String?
+  createdAt DateTime   @default(now())
+  habits    Habit[]
+  logs      HabitLog[]
+}
+
+// Define Habit model for tracking individual habits
+model Habit {
+  id          String         @id @default(uuid())
+  userId      String
+  user        User           @relation(fields: [userId], references: [id])
+  title       String
+  description String?
+  startDate   DateTime       @default(now())
+  goalType    GoalType
+  goalValue   Int?
+  frequency   HabitFrequency
+  reminder    Reminder?
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  logs        HabitLog[]
+}
+
+// Define HabitLog model to track daily logs for each habit
+model HabitLog {
+  id        String    @id @default(uuid())
+  habitId   String
+  habit     Habit     @relation(fields: [habitId], references: [id])
+  date      DateTime
+  status    LogStatus
+  createdAt DateTime  @default(now())
+  User      User?     @relation(fields: [userId], references: [id])
+  userId    String?
+}
+
+// Define Reminder model for sending reminders
+model Reminder {
+  id        String            @id @default(uuid())
+  habitId   String            @unique
+  habit     Habit             @relation(fields: [habitId], references: [id])
+  time      DateTime
+  frequency ReminderFrequency
+  active    Boolean           @default(true)
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+}
+
+// Enum for defining different habit tracking goals
+enum GoalType {
+  Count // For habits like "Drink X cups of water"
+  Duration // For habits like "Meditate for X minutes"
+  Completion // For habits like "Exercise daily"
+}
+
+// Enum for defining the frequency of habits
+enum HabitFrequency {
+  Daily
+  Weekly
+  Monthly
+}
+
+// Enum for defining log status
+enum LogStatus {
+  Completed
+  Skipped
+  Failed
+}
+
+// Enum for defining reminder frequency
+enum ReminderFrequency {
+  Once
+  Daily
+  Weekly
+}

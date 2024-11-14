@@ -4,6 +4,10 @@
   "private": true,
   "main": "index.js",
   "exports": {
+    "./habits": {
+      "types": "./dist/habits/index.d.ts",
+      "require": "./dist/habits/index.js"
+    },
     "./users": {
       "types": "./dist/users/index.d.ts",
       "require": "./dist/users/index.js"

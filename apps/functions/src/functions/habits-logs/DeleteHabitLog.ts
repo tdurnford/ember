@@ -39,5 +39,5 @@ app.http("DeleteHabitLog", {
   methods: ["DELETE"],
   authLevel: "anonymous",
   handler: DeleteHabitLog,
-  route: "habitLogs/{id}",
+  route: "habitlogs/{id}",
 });

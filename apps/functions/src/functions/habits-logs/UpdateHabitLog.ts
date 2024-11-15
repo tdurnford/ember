@@ -40,5 +40,5 @@ app.http("UpdateHabitLog", {
   methods: ["POST"],
   authLevel: "anonymous",
   handler: UpdateHabitLog,
-  route: "habitLogs/{id}",
+  route: "habitlogs/{id}",
 });

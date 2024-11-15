@@ -39,5 +39,5 @@ app.http("GetHabitLogs", {
   methods: ["GET"],
   authLevel: "anonymous",
   handler: GetHabitLogs,
-  route: "habitLogs",
+  route: "habitlogs",
 });

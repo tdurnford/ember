@@ -2,7 +2,7 @@
   "name": "@repo/functions",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/*.js",
+  "main": "dist/**/*.js",
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",

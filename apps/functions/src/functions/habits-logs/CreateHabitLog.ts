@@ -40,5 +40,5 @@ app.http("CreateHabitLog", {
   methods: ["POST"],
   authLevel: "anonymous",
   handler: CreateHabitLog,
-  route: "habitLogs",
+  route: "habitlogs",
 });

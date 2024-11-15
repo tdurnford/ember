@@ -5,22 +5,22 @@ import {
   HttpResponseInit,
   InvocationContext,
 } from "@azure/functions";
-import { getHabitLogs } from "@repo/db/habit-logs";
+import { getHabitLog } from "@repo/db/habit-logs";
 
-export async function GetHabitLogs(
+export async function GetHabitLog(
   request: HttpRequest,
   context: InvocationContext
 ): Promise<HttpResponseInit> {
   context.log(`Http function processed request for url "${request.url}"`);
 
   try {
-    const habitId = request.params.id;
+    const habitLogId = request.params.id;
 
-    if (!habitId) {
+    if (!habitLogId) {
       return { status: 400, body: "Bad Request" };
     }
 
-    const habitLog = await getHabitLogs(habitId);
+    const habitLog = await getHabitLog(habitLogId);
 
     const response = new HttpResponse({
       body: JSON.stringify(habitLog, null, 2),
@@ -35,9 +35,9 @@ export async function GetHabitLogs(
   }
 }
 
-app.http("GetHabitLogs", {
+app.http("GetHabitLog", {
   methods: ["GET"],
   authLevel: "anonymous",
-  handler: GetHabitLogs,
-  route: "habitLogs/{id}",
+  handler: GetHabitLog,
+  route: "habitlogs/{id}",
 });

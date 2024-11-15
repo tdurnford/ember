@@ -20,7 +20,8 @@
   "scripts": {
     "lint": "eslint . --max-warnings 0",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc"
+    "build": "tsc",
+    "generate": "prisma generate"
   },
   "dependencies": {
     "@prisma/client": "^5.22.0",

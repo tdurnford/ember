@@ -5,25 +5,25 @@ import {
   HttpResponseInit,
   InvocationContext,
 } from "@azure/functions";
-import { getHabits } from "@repo/db/habits";
+import { deleteHabitLog } from "@repo/db/habit-logs";
 
-export async function GetHabits(
+export async function DeleteHabitLog(
   request: HttpRequest,
   context: InvocationContext
 ): Promise<HttpResponseInit> {
   context.log(`Http function processed request for url "${request.url}"`);
 
   try {
-    const id = request.query.get("userId");
+    const id = request.params.id;
 
     if (!id) {
       return { status: 400, body: "Bad Request" };
     }
 
-    const habit = await getHabits(id);
+    const habitLog = await deleteHabitLog(id);
 
     const response = new HttpResponse({
-      body: JSON.stringify(habit, null, 2),
+      body: JSON.stringify(habitLog, null, 2),
       status: 200,
     });
     response.headers.set("Content-Type", "application/json");
@@ -35,9 +35,9 @@ export async function GetHabits(
   }
 }
 
-app.http("GetHabits", {
-  methods: ["GET"],
+app.http("DeleteHabitLog", {
+  methods: ["DELETE"],
   authLevel: "anonymous",
-  handler: GetHabits,
-  route: "habits",
+  handler: DeleteHabitLog,
+  route: "habitLogs/{id}",
 });

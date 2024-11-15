@@ -8,6 +8,10 @@
       "types": "./dist/habits/index.d.ts",
       "require": "./dist/habits/index.js"
     },
+    "./habit-logs": {
+      "types": "./dist/habit-logs/index.d.ts",
+      "require": "./dist/habit-logs/index.js"
+    },
     "./users": {
       "types": "./dist/users/index.d.ts",
       "require": "./dist/users/index.js"

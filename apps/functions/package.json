@@ -1,5 +1,5 @@
 {
-  "name": "@repo/functions",
+  "name": "functions",
   "version": "1.0.0",
   "description": "",
   "main": "dist/**/*.js",
